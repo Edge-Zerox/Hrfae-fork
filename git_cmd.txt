@@ -1,0 +1,207 @@
+git add data/ffhq/01000
+git commit -m'data'
+git push
+git add data/ffhq/02000
+git commit -m'data'
+git push
+git add data/ffhq/03000
+git commit -m'data'
+git push
+git add data/ffhq/04000
+git commit -m'data'
+git push
+git add data/ffhq/05000
+git commit -m'data'
+git push
+git add data/ffhq/06000
+git commit -m'data'
+git push
+git add data/ffhq/07000
+git commit -m'data'
+git push
+git add data/ffhq/08000
+git commit -m'data'
+git push
+git add data/ffhq/09000
+git commit -m'data'
+git push
+git add data/ffhq/10000
+git commit -m'data'
+git push
+git add data/ffhq/11000
+git commit -m'data'
+git push
+git add data/ffhq/12000
+git commit -m'data'
+git push
+git add data/ffhq/13000
+git commit -m'data'
+git push
+git add data/ffhq/14000
+git commit -m'data'
+git push
+git add data/ffhq/15000
+git commit -m'data'
+git push
+git add data/ffhq/16000
+git commit -m'data'
+git push
+git add data/ffhq/17000
+git commit -m'data'
+git push
+git add data/ffhq/18000
+git commit -m'data'
+git push
+git add data/ffhq/19000
+git commit -m'data'
+git push
+git add data/ffhq/20000
+git commit -m'data'
+git push
+git add data/ffhq/21000
+git commit -m'data'
+git push
+git add data/ffhq/22000
+git commit -m'data'
+git push
+git add data/ffhq/23000
+git commit -m'data'
+git push
+git add data/ffhq/24000
+git commit -m'data'
+git push
+git add data/ffhq/25000
+git commit -m'data'
+git push
+git add data/ffhq/26000
+git commit -m'data'
+git push
+git add data/ffhq/27000
+git commit -m'data'
+git push
+git add data/ffhq/28000
+git commit -m'data'
+git push
+git add data/ffhq/29000
+git commit -m'data'
+git push
+git add data/ffhq/30000
+git commit -m'data'
+git push
+git add data/ffhq/31000
+git commit -m'data'
+git push
+git add data/ffhq/32000
+git commit -m'data'
+git push
+git add data/ffhq/33000
+git commit -m'data'
+git push
+git add data/ffhq/34000
+git commit -m'data'
+git push
+git add data/ffhq/35000
+git commit -m'data'
+git push
+git add data/ffhq/36000
+git commit -m'data'
+git push
+git add data/ffhq/37000
+git commit -m'data'
+git push
+git add data/ffhq/38000
+git commit -m'data'
+git push
+git add data/ffhq/39000
+git commit -m'data'
+git push
+git add data/ffhq/40000
+git commit -m'data'
+git push
+git add data/ffhq/41000
+git commit -m'data'
+git push
+git add data/ffhq/42000
+git commit -m'data'
+git push
+git add data/ffhq/43000
+git commit -m'data'
+git push
+git add data/ffhq/44000
+git commit -m'data'
+git push
+git add data/ffhq/45000
+git commit -m'data'
+git push
+git add data/ffhq/46000
+git commit -m'data'
+git push
+git add data/ffhq/47000
+git commit -m'data'
+git push
+git add data/ffhq/48000
+git commit -m'data'
+git push
+git add data/ffhq/49000
+git commit -m'data'
+git push
+git add data/ffhq/50000
+git commit -m'data'
+git push
+git add data/ffhq/51000
+git commit -m'data'
+git push
+git add data/ffhq/52000
+git commit -m'data'
+git push
+git add data/ffhq/53000
+git commit -m'data'
+git push
+git add data/ffhq/54000
+git commit -m'data'
+git push
+git add data/ffhq/55000
+git commit -m'data'
+git push
+git add data/ffhq/56000
+git commit -m'data'
+git push
+git add data/ffhq/57000
+git commit -m'data'
+git push
+git add data/ffhq/58000
+git commit -m'data'
+git push
+git add data/ffhq/59000
+git commit -m'data'
+git push
+git add data/ffhq/60000
+git commit -m'data'
+git push
+git add data/ffhq/61000
+git commit -m'data'
+git push
+git add data/ffhq/62000
+git commit -m'data'
+git push
+git add data/ffhq/63000
+git commit -m'data'
+git push
+git add data/ffhq/64000
+git commit -m'data'
+git push
+git add data/ffhq/65000
+git commit -m'data'
+git push
+git add data/ffhq/66000
+git commit -m'data'
+git push
+git add data/ffhq/67000
+git commit -m'data'
+git push
+git add data/ffhq/68000
+git commit -m'data'
+git push
+git add data/ffhq/69000
+git commit -m'data'
+git push
