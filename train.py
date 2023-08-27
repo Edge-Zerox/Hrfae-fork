@@ -36,10 +36,9 @@ parser.add_argument('--config', type=str, default='params', help='Path to the co
 parser.add_argument('--dataset_path', type=str, default='./data/ffhq/', help='dataset path')
 parser.add_argument('--label_file_path', type=str, default='./data/ffhq.npy', help='label file path')
 
-current_directory = '/kaggle/working/Hrfae-fork'
-default_vgg_model_path = os.path.join(current_directory, '..', 'input', 'caffemodel', 'dex_imdb_wiki.caffemodel.pt')
 
-parser.add_argument('--vgg_model_path', type=str, default=default_vgg_model_path, help='pretrained age classifier')
+parser.add_argument('--vgg_model_path', type=str, default='../../input/caffemodel/dex_imdb_wiki.caffemodel.pt', help='pretrained age classifier')
+
 
 parser.add_argument('--log_path', type=str, default='./logs/', help='log file path')
 parser.add_argument('--multigpu', type=bool, default=False, help='use multiple gpus')
