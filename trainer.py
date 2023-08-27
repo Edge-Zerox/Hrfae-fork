@@ -158,18 +158,29 @@ class Trainer(nn.Module):
     
     def log_image(self, x_a, age_a, logger, n_epoch, n_iter):
         x_a_recon, x_a_modif, age_a_modif = self.gen_encode(x_a, age_a)
-
+        # print(x_a[0])
        # Chuyển đổi tensor thành mảng NumPy
-        x_a_np = self.clip_img(x_a).cpu().numpy()
-        x_a_recon_np = self.clip_img(x_a_recon).cpu().numpy()
-        x_a_modif_np = self.clip_img(x_a_modif).cpu().numpy()
+        x_a_np = self.clip_img(x_a).detach().cpu().numpy()
+        x_a_recon_np = self.clip_img(x_a_recon).detach().cpu().numpy()
+        x_a_modif_np = self.clip_img(x_a_modif).detach().cpu().numpy()
+        # print(x_a_np[0])
 
         # Chuyển đổi từ kênh đầu tiên sang kênh cuối cho PIL
-        x_a_np = np.transpose(x_a_np, (0, 1, 2, 3))
-        x_a_recon_np = np.transpose(x_a_recon_np, (0, 1, 2, 3))
-        x_a_modif_np = np.transpose(x_a_modif_np, (0, 1, 2, 3))
+
+        # print(f'Before transpose - x_a_np shape: {x_a_np.shape}')
+        # x_a_np = np.transpose(x_a_np, (0, 1, 2, 3))
+        # print(f'After transpose - x_a_np shape: {x_a_np.shape}')
+        # x_a_recon_np = np.transpose(x_a_recon_np, (0, 1, 2, 3))
+        # x_a_modif_np = np.transpose(x_a_modif_np, (0, 1, 2, 3))
+        # print(f'x_a_np: {x_a_np.shape}')
+        # print(f'x_a_recon_np: {x_a_recon_np.shape}')
+        # print(f'x_a_modif_np: {x_a_modif_np.shape}')
+
 
         # Log hình ảnh sử dụng TensorBoardX
+        print(f'x_a_np[0]: {x_a_np[0].shape}')
+        print(f'x_a_recon_np[0]: {x_a_recon_np[0].shape}')
+        print(f'x_a_modif_np[0]: {x_a_modif_np[0].shape}')
         logger.add_image('content', x_a_np[0], n_iter)
         logger.add_image('content_recon', x_a_recon_np[0], n_iter)
         logger.add_image('content_modif', x_a_modif_np[0], n_iter)
@@ -185,9 +196,13 @@ class Trainer(nn.Module):
         logger.log_value('dis/realism_A_modif', self.realism_a_modif.mean().item(), n_iter + 1)
         logger.log_value('dis/realism_B', self.realism_b.mean().item(), n_iter + 1)
     
-    def clip_img(self, img):
-        return (img.clamp(0, 255)).type(torch.uint8)
-
+    def clip_img(self, img_batch):
+        img_tmp = img_batch.clone()
+        img_tmp[:, 0] += 0.48501961
+        img_tmp[:, 1] += 0.45795686
+        img_tmp[:, 2] += 0.40760392
+        img_tmp = torch.clamp(img_tmp, 0, 1)
+        return img_tmp
     def save_image(self, x_a, age_a, log_dir, n_epoch, n_iter):
         x_a_recon, x_a_modif, age_a_modif = self.gen_encode(x_a, age_a)
         print(x_a.shape)
@@ -195,14 +210,20 @@ class Trainer(nn.Module):
         print(x_a_modif.shape)
 
         # Chuyển các tensor về CPU và chuẩn bị dữ liệu cho PIL
-        x_a_pil = self.clip_img(x_a[0]).cpu().permute(1, 2, 0).numpy()
-        x_a_recon_pil = self.clip_img(x_a_recon[0]).cpu().permute(1, 2, 0).numpy()
-        x_a_modif_pil = self.clip_img(x_a_modif[0]).cpu().permute(1, 2, 0).numpy()
+        x_a_pil = self.clip_img(x_a)
+        x_a_recon_pil = self.clip_img(x_a_recon)
+        x_a_modif_pil = self.clip_img(x_a_modif)
+
+        # Chuyển tensor về numpy array và điều chỉnh kích thước (batch, channels, height, width) thành (batch, height, width, channels)
+        x_a_pil = np.transpose(x_a_pil.cpu().detach().numpy(), (0, 2, 3, 1))
+        x_a_recon_pil = np.transpose(x_a_recon_pil.cpu().detach().numpy(), (0, 2, 3, 1))
+        x_a_modif_pil = np.transpose(x_a_modif_pil.cpu().detach().numpy(), (0, 2, 3, 1))
 
         # Lưu ảnh sử dụng PIL
-        Image.fromarray(x_a_pil).save(log_dir + 'epoch' + str(n_epoch+1) + 'iter' + str(n_iter+1) + '_content.png')
-        Image.fromarray(x_a_recon_pil).save(log_dir + 'epoch' + str(n_epoch+1) + 'iter' + str(n_iter+1) + '_content_recon_' + str(age_a.cpu().numpy()[0]) + '.png')
-        Image.fromarray(x_a_modif_pil).save(log_dir + 'epoch' + str(n_epoch+1) + 'iter' + str(n_iter+1) + '_content_modif_' + str(age_a_modif.cpu().numpy()[0]) + '.png')
+        for i in range(x_a_pil.shape[0]):
+            Image.fromarray((x_a_pil[i] * 255).astype(np.uint8)).save(log_dir + f'epoch{n_epoch+1}iter{n_iter+1}_content_{i}.png')
+            Image.fromarray((x_a_recon_pil[i] * 255).astype(np.uint8)).save(log_dir + f'epoch{n_epoch+1}iter{n_iter+1}_content_recon_{age_a.cpu().numpy()[i]}.png')
+            Image.fromarray((x_a_modif_pil[i] * 255).astype(np.uint8)).save(log_dir + f'epoch{n_epoch+1}iter{n_iter+1}_content_modif_{age_a_modif.cpu().numpy()[i]}.png')
 
     def test_eval(self, x_a, age_a, target_age=0, hist_trans=True):
         _, x_a_modif, _= self.gen_encode(x_a, age_a, target_age=target_age)

@@ -51,7 +51,6 @@ logger = Logger(log_dir)
 
 loggerx = SummaryWriter(log_dir)
 
-
 config = yaml.safe_load(open('./configs/' + opts.config + '.yaml', 'r'))
 
 epochs = config['epochs']
@@ -59,7 +58,7 @@ age_min = config['age_min']
 age_max = config['age_max']
 
 # The first 10 epochs are trained on 512 x 512 images with a batch size of 4.
-batch_size = 16
+batch_size = 32
 img_size = (128, 128)
 
 # Load dataset
@@ -110,6 +109,8 @@ if __name__ == '__main__':
         for i, list_A in enumerate(loader_A):
             
             image_A, age_A = list_A
+
+
             image_B, age_B = next(iter_B)
             if age_A.size(0)!=batch_size:break
             if age_B.size(0)!=batch_size:
@@ -123,12 +124,13 @@ if __name__ == '__main__':
             if (n_iter+1) % config['log_iter'] == 0:
                 trainer.log_loss(logger, n_iter)
             if (n_iter+1) % config['image_log_iter'] == 0:
-                trainer.log_image(image_A, age_A, logger, n_epoch, n_iter)
+                trainer.log_image(image_A, age_A, loggerx, n_epoch, n_iter)
             if (n_iter+1) % config['image_save_iter'] == 0:
                 trainer.save_image(image_A, age_A, log_dir, n_epoch, n_iter)
 
             n_iter += 1
-            print(n_iter)
+            
+            print(n_epoch,n_iter)
         
         trainer.save_checkpoint(n_epoch, log_dir)
         trainer.gen_scheduler.step()

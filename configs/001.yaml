@@ -5,7 +5,7 @@ age_min: 20
 age_max: 70  
 # Training hyperparameters                 
 batch_size: 16                 
-epochs: 15    
+epochs: 7  
 # Optimizer parameters               
 lr: 0.0001         
 beta_1: 0.9           
@@ -15,9 +15,9 @@ weight_decay: 0.0005
 step_size: 10                
 gamma: 0.1                                 
 # Tensorboard log options
-image_save_iter: 500         
-image_log_iter: 250         
-log_iter: 5                  
+image_save_iter: 250   
+image_log_iter: 250       
+log_iter: 5                 
 # Loss weight
 w:
   recon: 10
