@@ -70,7 +70,7 @@ class ResBlock(nn.Module):
 class Encoder(nn.Module):
     def __init__(self, input_size=3, activ='leakyrelu'):
         super(Encoder, self).__init__()
-        self.conv_1 = Conv2d(input_size, 32, kernel_size=9, stride=1, activ=activ, sn=True)
+        self.conv_1 = Conv2d(input_size, 32, kernel_size=3, stride=1, activ=activ, sn=True)
         self.conv_2 = Conv2d(32, 64, kernel_size=3, stride=2, activ=activ, sn=True)
         self.conv_3 = Conv2d(64, 128, kernel_size=3, stride=2, activ=activ, sn=True)
         self.res_block = nn.Sequential(
@@ -92,29 +92,28 @@ class Decoder(nn.Module):
     def __init__(self, output_size=3, activ='leakyrelu'):
         super(Decoder, self).__init__()
         self.conv_1 = nn.Sequential(
-            nn.Upsample(scale_factor=2),
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
             Conv2d(256, 64, kernel_size=3, stride=1, activ=activ, sn=True)
         )
         self.conv_2 = nn.Sequential(
-            nn.Upsample(scale_factor=2),
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
             Conv2d(128, 32, kernel_size=3, stride=1, activ=activ, sn=True)
         )
         self.conv_3 = nn.Sequential(
-            nn.ReflectionPad2d(4),
-            nn.Conv2d(32, output_size, kernel_size=9, stride=1)
+            nn.ReflectionPad2d(1),
+            nn.Conv2d(32, output_size, kernel_size=3, stride=1)
         )
 
     def forward(self, x, age_vec, skip_1, skip_2):
         b, c = age_vec.size()
         age_vec = age_vec.view(b, c, 1, 1)
-        out = age_vec*x       
+        out = age_vec * x
         out = torch.cat((out, skip_1), 1)
         out = self.conv_1(out)
         out = torch.cat((out, skip_2), 1)
         out = self.conv_2(out)
         out = self.conv_3(out)
         return out
-
 
 class Mod_Net(nn.Module):
     def __init__(self):
@@ -123,9 +122,9 @@ class Mod_Net(nn.Module):
 
     def forward(self, x):
         b_s = x.size(0)
-        z = torch.zeros(b_s,101).type_as(x).float()
+        z = torch.zeros(b_s, 101).type_as(x).float()
         for i in range(b_s):
-            z[i, x[i]]=1
+            z[i, x[i]] = 1
         y = self.fc_mix(z)
         y = torch.sigmoid(y)
         return y
