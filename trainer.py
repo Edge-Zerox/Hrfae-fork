@@ -187,26 +187,26 @@ class Trainer(nn.Module):
 
 
     def log_loss(self, logger, n_iter):
-        logger.log_value('loss/total', self.loss_gen.item() + self.loss_dis_gp.item(), n_iter + 1)
+        logger.add_scalar('loss/total', self.loss_gen.item() + self.loss_dis_gp.item(), n_iter + 1)
         print(f'self.loss_gen.item() + self.loss_dis_gp.item(): {self.loss_gen.item() + self.loss_dis_gp.item()}')
 
-        logger.log_value('loss/recon', self.loss_recon.item(), n_iter + 1)
+        logger.add_scalar('loss/recon', self.loss_recon.item(), n_iter + 1)
         print(f'self.loss_recon.item(): {self.loss_recon.item()}')
 
-        logger.log_value('loss/class', self.loss_class.item(), n_iter + 1)
+        logger.add_scalar('loss/class', self.loss_class.item(), n_iter + 1)
         print(f'self.loss_class.item(): {self.loss_class.item()}')
 
-        logger.log_value('loss/adv', self.loss_adver.item(), n_iter + 1)
+        logger.add_scalar('loss/adv', self.loss_adver.item(), n_iter + 1)
         print(f'self.loss_adver.item(): {self.loss_adver.item()}')
 
-        logger.log_value('loss/dis', self.loss_dis_gp.item(), n_iter + 1)
+        logger.add_scalar('loss/dis', self.loss_dis_gp.item(), n_iter + 1)
         print(f'self.loss_dis_gp.item(): {self.loss_dis_gp.item()}')
 
-        logger.log_value('age_diff', self.age_diff.item(), n_iter + 1) 
+        logger.add_scalar('age_diff', self.age_diff.item(), n_iter + 1) 
         print(f'self.age_diff.item(): {self.age_diff.item()}')
 
-        logger.log_value('dis/realism_A_modif', self.realism_a_modif.mean().item(), n_iter + 1)
-        logger.log_value('dis/realism_B', self.realism_b.mean().item(), n_iter + 1)
+        logger.add_scalar('dis/realism_A_modif', self.realism_a_modif.mean().item(), n_iter + 1)
+        logger.add_scalar('dis/realism_B', self.realism_b.mean().item(), n_iter + 1)
     
     def clip_img(self, img_batch):
         img_tmp = img_batch.clone()
