@@ -54,6 +54,7 @@ logger = Logger(log_dir)
 
 
 loggerx = SummaryWriter(log_dir)
+print(log_dir)
 
 config = yaml.safe_load(open('./configs/' + opts.config + '.yaml', 'r'))
 
