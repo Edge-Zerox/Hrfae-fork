@@ -126,7 +126,7 @@ if __name__ == '__main__':
             trainer.update(image_A, image_B, age_A, age_B, n_iter)
             
             if (n_iter+1) % config['log_iter'] == 0:
-                trainer.log_loss(logger, n_iter)
+                trainer.log_loss(loggerx, n_iter)
             if (n_iter+1) % config['image_log_iter'] == 0:
                 trainer.log_image(image_A, age_A, loggerx, n_epoch, n_iter)
             if (n_iter+1) % config['image_save_iter'] == 0:
